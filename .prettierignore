@@ -1,0 +1,9 @@
+# Abaikan semua file minified
+*.min.js
+*.min.css
+
+# Abaikan folder build, dist, vendor, dsb.
+node_modules
+public/build
+vendor
+dist
