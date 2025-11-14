@@ -20,9 +20,35 @@
 <script src="{{ asset('adminlte/plugins/summernote/summernote-bs4.min.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
 
+<!-- DataTables  & Plugins -->
+<script src="{{ asset('adminlte/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/pdfmake/vfs_fonts.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+
 <!-- AdminLTE App -->
 <script src="{{ asset('adminlte/dist/js/adminlte.js') }}"></script>
 <script src="{{ asset('adminlte/dist/js/demo.js') }}"></script>
+
+<!-- AXIOS -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<!-- SweetAlert2 -->
+<script src="{{ asset('adminlte/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+<!-- Toastr -->
+<script src="{{ asset('adminlte/plugins/toastr/toastr.min.js') }}"></script>
+
+<!-- Select2 -->
+<script src="{{ asset('adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
+
 <script>
     $(function() {
         const $body = $('body');
@@ -86,7 +112,97 @@
                 applyTheme('system');
             }
         });
+
+        // Initial on modal
+        $('.modal').on('shown.bs.modal', function() {
+            $('.select2bs4').select2({
+                theme: 'bootstrap4',
+                dropdownParent: $('.modal')
+            });
+        });
+
+        // Initial on all pages
+        $('.select2bs4').select2({
+            theme: 'bootstrap4',
+        });
     });
+
+    function openModal(title, url) {
+        $('#globalModalTitle').text(title);
+        $('#globalModalBody').html('<div class="text-center p-3">Loading...</div>');
+        $('#globalModal').modal('show');
+
+        axios.get(url).then(res => {
+            $('#globalModalBody').html(res.data);
+        }).catch(() => {
+            $('#globalModalBody').html('<div class="alert alert-danger">Failed fetch data</div>');
+        });
+    }
+
+    function submitForm(form, idTable) {
+        const url = form.action;
+        const data = new FormData(form);
+        const overlay = `
+            <div class="form-overlay d-flex align-items-center justify-content-center" style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,0.6);z-index:10;">
+                <div class="spinner-border text-primary" role="status"></div>
+            </div>`;
+
+        $(form).css('position', 'relative').append(overlay);
+
+        axios.post(url, data)
+            .then(res => {
+                $('#globalModal').modal('hide');
+                toastr.success(res.data.message || 'Saved successfully');
+                $(idTable).DataTable().ajax.reload(null, false);
+            })
+            .catch(err => {
+                if (err.response?.data?.errors) {
+                    const errorList = Object.values(err.response.data.errors)
+                        .flat()
+                        .map(msg => `<li>${msg}</li>`)
+                        .join('');
+
+                    $('#formErrors').html(`
+                        <div class="alert alert-danger mb-3" role="alert">
+                            <div class="fw-bold mb-1">
+                                <i class="bi bi-exclamation-triangle-fill me-1"></i>
+                                Please fix the following errors:
+                            </div>
+                            <ul class="mb-0 ps-3">${errorList}</ul>
+                        </div>
+                    `);
+                } else {
+                    toastr.error('An error occurred!');
+                }
+            }).finally(() => {
+                $(form).find('.form-overlay').remove();
+            });
+        return false;
+    }
+
+    function confirmDelete(url, idTable) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "This action cannot be undone!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.delete(url)
+                    .then(res => {
+                        Swal.fire('Deleted!', res.data.message || 'The data has been deleted.', 'success');
+                        $(idTable).DataTable().ajax.reload(null, false);
+                    })
+                    .catch(() => {
+                        Swal.fire('Failed', 'An error occurred while deleting the data.', 'error');
+                    });
+            }
+        });
+    }
 </script>
 
 @yield('scripts')

@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\PasswordController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -30,4 +33,14 @@ Route::middleware(['auth'])->prefix('settings')->group(function() {
     Route::get('appearance', function () {
         return view('pages.settings.appearance');
     })->name('appearance.edit');
+});
+
+Route::middleware(['auth', 'verified'])->prefix('user-managements')->group(function() {
+    Route::redirect('/', '/settings/profile');
+
+    Route::get('users/datatable', [UserController::class, 'datatable'])->name('users.datatable');
+    Route::resource('users', UserController::class);
+    
+    Route::get('permissions/datatable', [PermissionController::class, 'datatable'])->name('permissions.datatable');
+    Route::resource('permissions', PermissionController::class);
 });
