@@ -17,7 +17,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 });
 
-Route::middleware(['auth'])->prefix('settings')->group(function() {
+Route::middleware(['auth'])->prefix('settings')->group(function () {
     Route::redirect('/', '/settings/profile');
 
     Route::get('profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -35,12 +35,15 @@ Route::middleware(['auth'])->prefix('settings')->group(function() {
     })->name('appearance.edit');
 });
 
-Route::middleware(['auth', 'verified'])->prefix('user-managements')->group(function() {
+Route::middleware(['auth', 'verified'])->prefix('user-managements')->group(function () {
     Route::redirect('/', '/settings/profile');
 
     Route::get('users/datatable', [UserController::class, 'datatable'])->name('users.datatable');
     Route::resource('users', UserController::class);
-    
+
     Route::get('permissions/datatable', [PermissionController::class, 'datatable'])->name('permissions.datatable');
     Route::resource('permissions', PermissionController::class);
+
+    Route::get('roles/datatable', [RoleController::class, 'datatable'])->name('roles.datatable');
+    Route::resource('roles', RoleController::class);
 });
