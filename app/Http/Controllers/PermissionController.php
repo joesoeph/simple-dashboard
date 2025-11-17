@@ -12,7 +12,7 @@ class PermissionController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {        
+    {
         return view('pages.permissions.index');
     }
 
@@ -21,7 +21,7 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        return view('pages.permissions.partials.form', ['action' => route('permissions.store')]);
+        return view('pages.permissions.partials.form', ['action' => route('system-settings.permissions.store')]);
     }
 
     /**
@@ -37,7 +37,7 @@ class PermissionController extends Controller
             'guard_name' => 'required|in:web',
         ]);
         Permission::create($validated);
-        return response()->json(['message'=>'Created successfully']);
+        return response()->json(['message' => 'Created successfully']);
     }
 
     /**
@@ -53,7 +53,7 @@ class PermissionController extends Controller
      */
     public function edit(Permission $permission)
     {
-        return view('pages.permissions.partials.form', ['action' => route('permissions.update', $permission), 'permission' => $permission]);
+        return view('pages.permissions.partials.form', ['action' => route('system-settings.permissions.update', $permission), 'permission' => $permission]);
     }
 
     /**
@@ -71,7 +71,7 @@ class PermissionController extends Controller
             'guard_name' => 'required|in:web',
         ]);
         $permission->update($validated);
-        return response()->json(['message'=>'Updated successfully']);
+        return response()->json(['message' => 'Updated successfully']);
     }
 
     /**
@@ -80,7 +80,7 @@ class PermissionController extends Controller
     public function destroy(Permission $permission)
     {
         $permission->delete();
-        return response()->json(['message'=>'Deleted successfully']);
+        return response()->json(['message' => 'Deleted successfully']);
     }
 
     public function datatable(Request $request)
@@ -101,7 +101,7 @@ class PermissionController extends Controller
 
         // Search
         if (!empty($searchValue)) {
-            $query->where(function($q) use ($searchValue) {
+            $query->where(function ($q) use ($searchValue) {
                 $q->where('name', 'like', "%{$searchValue}%");
             });
         }
@@ -119,8 +119,8 @@ class PermissionController extends Controller
 
         // Pagination
         $permissions = $query->skip($start)
-                       ->take($length)
-                       ->get();
+            ->take($length)
+            ->get();
 
         // Format data untuk DataTables
         $data = [];

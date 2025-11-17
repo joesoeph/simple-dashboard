@@ -116,14 +116,18 @@
         // Initial on modal
         $('.modal').on('shown.bs.modal', function() {
             $('.select2bs4').select2({
+                placeholder: '',
                 theme: 'bootstrap4',
-                dropdownParent: $('.modal')
+                dropdownParent: $('.modal'),
+                allowClear: true,
             });
         });
 
         // Initial on all pages
         $('.select2bs4').select2({
+            placeholder: '',
             theme: 'bootstrap4',
+            allowClear: true,
         });
     });
 
@@ -180,27 +184,49 @@
         return false;
     }
 
-    function confirmDelete(url, idTable) {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "This action cannot be undone!",
+    function confirmDelete(url, options = {}) {
+        const {
+            onSuccess = null, // callback when delete is successful
+                onError = null, // callback when delete fails
+                reloadTable = null, // e.g. '#myTable'
+                messages = {} // custom messages
+        } = options;
+
+        const config = {
+            title: messages.title || 'Are you sure?',
+            text: messages.text || "This action cannot be undone!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
             cancelButtonColor: '#6c757d',
-            confirmButtonText: 'Yes, delete it!',
-            cancelButtonText: 'Cancel'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                axios.delete(url)
-                    .then(res => {
-                        Swal.fire('Deleted!', res.data.message || 'The data has been deleted.', 'success');
-                        $(idTable).DataTable().ajax.reload(null, false);
-                    })
-                    .catch(() => {
-                        Swal.fire('Failed', 'An error occurred while deleting the data.', 'error');
-                    });
-            }
+            confirmButtonText: messages.confirmText || 'Yes, delete it!',
+            cancelButtonText: messages.cancelText || 'Cancel',
+            successMessage: messages.successMessage || 'The item has been deleted.',
+            errorMessage: messages.errorMessage || 'An error occurred while deleting the item.'
+        };
+
+        Swal.fire(config).then(result => {
+            if (!result.isConfirmed) return;
+
+            axios.delete(url)
+                .then(res => {
+                    Swal.fire('Deleted!', res.data.message || config.successMessage, 'success');
+
+                    if (reloadTable) {
+                        $(reloadTable).DataTable().ajax.reload(null, false);
+                    }
+
+                    if (typeof onSuccess === 'function') {
+                        onSuccess(res);
+                    }
+                })
+                .catch(err => {
+                    Swal.fire('Failed', config.errorMessage, 'error');
+
+                    if (typeof onError === 'function') {
+                        onError(err);
+                    }
+                });
         });
     }
 </script>

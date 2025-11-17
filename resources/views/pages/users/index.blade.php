@@ -23,7 +23,7 @@
                     <div class="card">
                         <div class="card-header text-right">
                             <button type="button" class="btn btn-primary"
-                                onclick="openModal('Add new user', '{{ route('users.create') }}')">
+                                onclick="openModal('Add new user', '{{ route('system-settings.users.create') }}')">
                                 <i class="fas fa-plus"></i>
                                 Add new
                             </button>
@@ -58,7 +58,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('users.datatable') }}",
+                    url: "{{ route('system-settings.users.datatable') }}",
                     type: 'GET'
                 },
                 columns: [{
@@ -121,7 +121,7 @@
                 const data = table.row(this).data();
                 if (!data) return;
 
-                openModal('Edit user', `/user-managements/users/${data.id}/edit`);
+                openModal('Edit user', `/user-management/users/${data.id}/edit`);
             });
         });
     </script>

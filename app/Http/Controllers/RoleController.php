@@ -23,7 +23,7 @@ class RoleController extends Controller
     public function create()
     {
         return view('pages.roles.partials.form', [
-            'action' => route('roles.store'),
+            'action' => route('system-settings.roles.store'),
             'role' => null,
             'permissions' => Permission::all()
         ]);
@@ -69,7 +69,7 @@ class RoleController extends Controller
     public function edit(Role $role)
     {
         return view('pages.roles.partials.form', [
-            'action' => route('roles.update', $role),
+            'action' => route('system-settings.roles.update', $role),
             'role' => $role,
             'permissions' => Permission::all(),
         ]);

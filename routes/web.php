@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
@@ -35,7 +36,7 @@ Route::middleware(['auth'])->prefix('settings')->group(function () {
     })->name('appearance.edit');
 });
 
-Route::middleware(['auth', 'verified'])->prefix('user-managements')->group(function () {
+Route::middleware(['auth', 'verified'])->name('system-settings.')->prefix('system-settings')->group(function () {
     Route::redirect('/', '/settings/profile');
 
     Route::get('users/datatable', [UserController::class, 'datatable'])->name('users.datatable');
@@ -46,4 +47,6 @@ Route::middleware(['auth', 'verified'])->prefix('user-managements')->group(funct
 
     Route::get('roles/datatable', [RoleController::class, 'datatable'])->name('roles.datatable');
     Route::resource('roles', RoleController::class);
+    Route::post('menus/reorder', [MenuController::class, 'reorder'])->name('menus.reorder');
+    Route::resource('menus', MenuController::class);
 });

@@ -23,7 +23,7 @@
                     <div class="card">
                         <div class="card-header text-right">
                             <button type="button" class="btn btn-primary"
-                                onclick="openModal('Add new permission', '{{ route('permissions.create') }}')">
+                                onclick="openModal('Add new permission', '{{ route('system-settings.permissions.create') }}')">
                                 <i class="fas fa-plus"></i>
                                 Add new
                             </button>
@@ -58,7 +58,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('permissions.datatable') }}",
+                    url: "{{ route('system-settings.permissions.datatable') }}",
                     type: 'GET'
                 },
                 columns: [{
@@ -121,7 +121,7 @@
                 const data = table.row(this).data();
                 if (!data) return;
 
-                openModal('Edit permission', `/user-managements/permissions/${data.id}/edit`);
+                openModal('Edit permission', `/user-management/permissions/${data.id}/edit`);
             });
         });
     </script>

@@ -11,7 +11,7 @@ class UserController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {        
+    {
         return view('pages.users.index');
     }
 
@@ -20,7 +20,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('pages.users.partials.form', ['action' => route('users.store')]);
+        return view('pages.users.partials.form', ['action' => route('system-settings.users.store')]);
     }
 
     /**
@@ -28,13 +28,13 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(['name'=>'required', 'email'=>'required|email|unique:users', 'password'=>'required']);
+        $request->validate(['name' => 'required', 'email' => 'required|email|unique:users', 'password' => 'required']);
         User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
-        return response()->json(['message'=>'Created successfully']);
+        return response()->json(['message' => 'Created successfully']);
     }
 
     /**
@@ -50,7 +50,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('pages.users.partials.form', ['action' => route('users.update', $user), 'user' => $user]);
+        return view('pages.users.partials.form', ['action' => route('system-settings.users.update', $user), 'user' => $user]);
     }
 
     /**
@@ -58,9 +58,9 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $request->validate(['name'=>'required', 'email'=>'required|email|unique:users,email,'.$user->id]);
-        $user->update($request->only('name','email'));
-        return response()->json(['message'=>'Updated successfully']);
+        $request->validate(['name' => 'required', 'email' => 'required|email|unique:users,email,' . $user->id]);
+        $user->update($request->only('name', 'email'));
+        return response()->json(['message' => 'Updated successfully']);
     }
 
     /**
@@ -69,7 +69,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return response()->json(['message'=>'Deleted successfully']);
+        return response()->json(['message' => 'Deleted successfully']);
     }
 
     public function datatable(Request $request)
@@ -90,9 +90,9 @@ class UserController extends Controller
 
         // Search
         if (!empty($searchValue)) {
-            $query->where(function($q) use ($searchValue) {
+            $query->where(function ($q) use ($searchValue) {
                 $q->where('name', 'like', "%{$searchValue}%")
-                  ->orWhere('email', 'like', "%{$searchValue}%");
+                    ->orWhere('email', 'like', "%{$searchValue}%");
             });
         }
 
@@ -109,8 +109,8 @@ class UserController extends Controller
 
         // Pagination
         $users = $query->skip($start)
-                       ->take($length)
-                       ->get();
+            ->take($length)
+            ->get();
 
         // Format data untuk DataTables
         $data = [];

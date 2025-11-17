@@ -23,7 +23,7 @@
                     <div class="card">
                         <div class="card-header text-right">
                             <button type="button" class="btn btn-primary"
-                                onclick="openModal('Add new role', '{{ route('roles.create') }}')">
+                                onclick="openModal('Add new role', '{{ route('system-settings.roles.create') }}')">
                                 <i class="fas fa-plus"></i>
                                 Add new
                             </button>
@@ -59,7 +59,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('roles.datatable') }}",
+                    url: "{{ route('system-settings.roles.datatable') }}",
                     type: 'GET'
                 },
                 columns: [{
@@ -126,7 +126,7 @@
                 const data = table.row(this).data();
                 if (!data) return;
 
-                openModal('Edit role', `/user-managements/roles/${data.id}/edit`);
+                openModal('Edit role', `/user-management/roles/${data.id}/edit`);
             });
         });
     </script>
