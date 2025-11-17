@@ -126,7 +126,7 @@
                 const data = table.row(this).data();
                 if (!data) return;
 
-                openModal('Edit role', `/user-management/roles/${data.id}/edit`);
+                openModal('Edit role', `/system-settings/roles/${data.id}/edit`);
             });
         });
     </script>

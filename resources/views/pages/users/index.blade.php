@@ -35,6 +35,8 @@
                                         <th>ID</th>
                                         <th>Name</th>
                                         <th>Email</th>
+                                        <th>Roles</th>
+                                        <th>Permissions</th>
                                         <th>Created At</th>
                                         <th>Actions</th>
                                     </tr>
@@ -72,6 +74,26 @@
                     {
                         data: 'email',
                         name: 'email'
+                    },
+                    {
+                        data: 'roles',
+                        name: 'roles',
+                        render: function(value) {
+                            if (!value) return '-';
+                            return value.split(', ').map(r =>
+                                `<span class="badge badge-primary mr-1">${r}</span>`
+                            ).join('');
+                        }
+                    },
+                    {
+                        data: 'permissions',
+                        name: 'permissions',
+                        render: function(value) {
+                            if (!value) return '-';
+                            return value.split(', ').map(p =>
+                                `<span class="badge badge-info mr-1">${p}</span>`
+                            ).join('');
+                        }
                     },
                     {
                         data: 'created_at',
@@ -121,7 +143,7 @@
                 const data = table.row(this).data();
                 if (!data) return;
 
-                openModal('Edit user', `/user-management/users/${data.id}/edit`);
+                openModal('Edit user', `/system-settings/users/${data.id}/edit`);
             });
         });
     </script>

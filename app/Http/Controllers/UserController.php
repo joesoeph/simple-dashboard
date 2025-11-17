@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
@@ -20,7 +22,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('pages.users.partials.form', ['action' => route('system-settings.users.store')]);
+        return view('pages.users.partials.form', [
+            'action' => route('system-settings.users.store'),
+            'roles' => Role::all(),
+            'permissions' => Permission::all(),
+        ]);
     }
 
     /**
@@ -28,12 +34,23 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(['name' => 'required', 'email' => 'required|email|unique:users', 'password' => 'required']);
-        User::create([
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:6',
+            'roles' => 'array',
+            'permissions' => 'array',
+        ]);
+
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
+
+        $user->syncRoles($request->roles ?? []);
+        $user->syncPermissions($request->permissions ?? []);
+
         return response()->json(['message' => 'Created successfully']);
     }
 
@@ -50,7 +67,12 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('pages.users.partials.form', ['action' => route('system-settings.users.update', $user), 'user' => $user]);
+        return view('pages.users.partials.form', [
+            'action' => route('system-settings.users.update', $user),
+            'user' => $user,
+            'roles' => Role::all(),
+            'permissions' => Permission::all(),
+        ]);
     }
 
     /**
@@ -58,8 +80,17 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $request->validate(['name' => 'required', 'email' => 'required|email|unique:users,email,' . $user->id]);
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'roles' => 'array',
+            'permissions' => 'array',
+        ]);
+
         $user->update($request->only('name', 'email'));
+        $user->syncRoles($request->roles ?? []);
+        $user->syncPermissions($request->permissions ?? []);
+
         return response()->json(['message' => 'Updated successfully']);
     }
 
@@ -86,7 +117,7 @@ class UserController extends Controller
         $columns = ['id', 'name', 'email', 'created_at'];
 
         // Query builder
-        $query = User::query();
+        $query = User::with(['roles', 'permissions']);
 
         // Search
         if (!empty($searchValue)) {
@@ -119,6 +150,8 @@ class UserController extends Controller
                 'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
+                'roles' => $user->roles->pluck('name')->join(', '),
+                'permissions' => $user->permissions->pluck('name')->join(', '),
                 'created_at' => $user->created_at->format('d M Y H:i'),
                 'actions' => view('pages.users.partials.actions', compact('user'))->render()
             ];

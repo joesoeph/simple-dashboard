@@ -1,22 +1,55 @@
 <form onsubmit="return submitForm(this, '#userDatatable')" action="{{ $action }}">
     @csrf
-    @if (isset($user))
+    @isset($user)
         @method('PUT')
-    @endif
+    @endisset
+
     <div id="formErrors"></div>
+
     <div class="form-group">
-        <label for="name">Name</label>
-        <input id="name" type="text" name="name" value="{{ $user->name ?? '' }}" class="form-control">
+        <label>Name</label>
+        <input type="text" name="name" value="{{ $user->name ?? '' }}" class="form-control">
     </div>
+
     <div class="form-group">
-        <label for="email">Email</label>
-        <input id="email" type="email" name="email" value="{{ $user->email ?? '' }}" class="form-control">
+        <label>Email</label>
+        <input type="email" name="email" value="{{ $user->email ?? '' }}" class="form-control">
     </div>
-    @if (!isset($user))
+
+    @empty($user)
         <div class="form-group">
-            <label for="password">Password</label>
-            <input id="password" type="password" name="password" class="form-control">
+            <label>Password</label>
+            <input type="password" name="password" class="form-control">
         </div>
-    @endif
-    <button type="submit" class="btn btn-primary">Save</button>
+    @endempty
+
+    {{-- ROLES --}}
+    <div class="form-group">
+        <label>Roles</label>
+        <select name="roles[]" class="form-control select2bs4" multiple>
+            @foreach ($roles as $role)
+                <option value="{{ $role->name }}"
+                    @isset($user)
+                        {{ $user->roles->contains('name', $role->name) ? 'selected' : '' }}
+                    @endisset>
+                    {{ $role->name }}</option>
+            @endforeach
+        </select>
+    </div>
+
+    {{-- PERMISSIONS --}}
+    <div class="form-group">
+        <label>Permissions</label>
+        <select name="permissions[]" class="form-control select2bs4" multiple>
+            @foreach ($permissions as $permission)
+                <option value="{{ $permission->name }}"
+                    @isset($user)
+                        {{ $user->permissions->contains('name', $permission->name) ? 'selected' : '' }}
+                    @endisset>
+                    {{ $permission->name }}</option>
+            @endforeach
+        </select>
+    </div>
+
+    <button class="btn btn-primary">Save</button>
 </form>

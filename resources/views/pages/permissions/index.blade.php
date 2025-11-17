@@ -121,7 +121,7 @@
                 const data = table.row(this).data();
                 if (!data) return;
 
-                openModal('Edit permission', `/user-management/permissions/${data.id}/edit`);
+                openModal('Edit permission', `/system-settings/permissions/${data.id}/edit`);
             });
         });
     </script>
