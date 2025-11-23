@@ -22,7 +22,7 @@
     @if ($menu->visibleChildren()->count())
         <ul class="nav nav-treeview">
             @foreach ($menu->visibleChildren() as $child)
-                @include('layouts.sidebar-item', ['menu' => $child])
+                @include('partials.sidebar-item', ['menu' => $child])
             @endforeach
         </ul>
     @endif
