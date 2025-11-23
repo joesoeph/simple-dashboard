@@ -23,7 +23,7 @@
                     <div class="card">
                         <div class="card-header text-right">
                             <button type="button" class="btn btn-primary"
-                                onclick="openModal('Add new permission', '{{ route('system-settings.permissions.create') }}')">
+                                onclick="app.helper.openModal('Add new permission', '{{ route('system-settings.permissions.create') }}')">
                                 <i class="fas fa-plus"></i>
                                 Add new
                             </button>
@@ -121,7 +121,7 @@
                 const data = table.row(this).data();
                 if (!data) return;
 
-                openModal('Edit permission', `/system-settings/permissions/${data.id}/edit`);
+                app.helper.openModal('Edit permission', `/system-settings/permissions/${data.id}/edit`);
             });
         });
     </script>

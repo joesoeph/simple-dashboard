@@ -1,3 +1,9 @@
+@php
+    if ($menu->children->count() && $menu->visibleChildren()->isEmpty()) {
+        return;
+    }
+@endphp
+
 <li
     class="nav-item {{ $menu->children->count() ? 'has-treeview' : '' }} {{ $menu->isActive() || $menu->isParentActive() ? 'menu-open' : '' }}">
     <a href="{{ $menu->route ? route($menu->route) : $menu->url ?? '#' }}"
@@ -6,28 +12,17 @@
         <i class="nav-icon {{ $menu->icon }}"></i>
         <p>
             {{ $menu->label }}
-            @if ($menu->children->count())
+
+            @if ($menu->visibleChildren()->count())
                 <i class="right fas fa-angle-left"></i>
             @endif
         </p>
     </a>
 
-    @if ($menu->children->count())
+    @if ($menu->visibleChildren()->count())
         <ul class="nav nav-treeview">
-            @foreach ($menu->children as $child)
-                <li class="nav-item">
-                    <a href="{{ $child->route ? route($child->route) : $child->url ?? '#' }}"
-                        class="nav-link {{ $child->isActive() ? 'active' : '' }}">
-
-                        <i class="nav-icon far fa-circle nav-icon"></i>
-                        <p>{{ $child->label }}</p>
-                    </a>
-
-                    {{-- recursive include --}}
-                    @if ($child->children->count())
-                        @include('layouts.sidebar-item', ['menu' => $child])
-                    @endif
-                </li>
+            @foreach ($menu->visibleChildren() as $child)
+                @include('layouts.sidebar-item', ['menu' => $child])
             @endforeach
         </ul>
     @endif

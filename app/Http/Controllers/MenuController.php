@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Menu;
+use App\Services\RouteListService;
 use Illuminate\Http\Request;
 
 class MenuController extends Controller
@@ -44,11 +45,11 @@ class MenuController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(RouteListService $route)
     {
         return view('pages.menus.partials.form', [
             'action' => route('system-settings.menus.store'),
-            'role' => null,
+            'routes' => $route->getNamedRoutes(),
             'parents' => Menu::all()
         ]);
     }
@@ -91,11 +92,12 @@ class MenuController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Menu $menu)
+    public function edit(Menu $menu, RouteListService $route)
     {
         return view('pages.menus.partials.form', [
             'action' => route('system-settings.menus.update', $menu),
             'menu' => $menu,
+            'routes' => $route->getNamedRoutes(),
             'parents' => Menu::all(),
         ]);
     }

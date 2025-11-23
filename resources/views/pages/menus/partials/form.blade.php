@@ -1,4 +1,4 @@
-<form onsubmit="return submitForm(this, '#menuDatatable')" action="{{ $action }}">
+<form action="{{ $action }}" method="POST">
     @csrf
     @if (isset($menu))
         @method('PUT')
@@ -18,7 +18,14 @@
     </div>
     <div class="form-group">
         <label for="route">Route</label>
-        <input id="route" type="text" name="route" value="{{ $menu->route ?? '' }}" class="form-control">
+        <select id="route" class="form-control select2bs4" name="route" style="width: 100%;">
+            <option value="">—</option>
+            @foreach ($routes as $route)
+                <option value="{{ $route['name'] }}" {{ $route['name'] === ($menu->route ?? '') ? 'selected' : '' }}>
+                    {{ $route['name'] }}
+                </option>
+            @endforeach
+        </select>
     </div>
     <div class="form-group">
         <label for="parent_id">Parent menu</label>

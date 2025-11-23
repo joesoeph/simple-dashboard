@@ -1,0 +1,19 @@
+.selected-row {
+    background-color: #ffe8a1 !important;
+    color: #000 !important;
+}
+
+table.dataTable tbody th,
+table.dataTable tbody td {
+    padding: 4px 5px !important;
+    vertical-align: middle;
+}
+
+table.dataTable thead th {
+    padding: 8px 10px !important;
+    font-weight: 500 !important;
+}
+
+table.dataTable {
+    font-size: 0.8rem;
+}

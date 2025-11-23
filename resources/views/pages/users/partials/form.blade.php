@@ -1,4 +1,4 @@
-<form onsubmit="return submitForm(this, '#userDatatable')" action="{{ $action }}">
+<form onsubmit="return app.helper.submitForm(this, '#userDatatable')" action="{{ $action }}">
     @csrf
     @isset($user)
         @method('PUT')

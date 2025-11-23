@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('parent_id')->nullable()->constrained('menus')->nullOnDelete();
             $table->integer('order')->default(0);
             $table->boolean('is_active')->default(true);
+            $table->string('permission_name')->nullable();
             $table->timestamps();
         });
     }

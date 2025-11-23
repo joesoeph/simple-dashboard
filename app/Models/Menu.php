@@ -59,4 +59,15 @@ class Menu extends Model
         }
         return false;
     }
+
+    public function isVisible()
+    {
+        if (!$this->permission) return true;
+        return auth()->user()->can($this->permission);
+    }
+
+    public function visibleChildren()
+    {
+        return $this->children->filter(fn($child) => $child->isVisible());
+    }
 }

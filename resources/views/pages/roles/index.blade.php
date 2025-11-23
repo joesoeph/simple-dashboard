@@ -23,7 +23,7 @@
                     <div class="card">
                         <div class="card-header text-right">
                             <button type="button" class="btn btn-primary"
-                                onclick="openModal('Add new role', '{{ route('system-settings.roles.create') }}')">
+                                onclick="app.helper.openModal('Add new role', '{{ route('system-settings.roles.create') }}')">
                                 <i class="fas fa-plus"></i>
                                 Add new
                             </button>
@@ -126,7 +126,7 @@
                 const data = table.row(this).data();
                 if (!data) return;
 
-                openModal('Edit role', `/system-settings/roles/${data.id}/edit`);
+                app.helper.openModal('Edit role', `/system-settings/roles/${data.id}/edit`);
             });
         });
     </script>

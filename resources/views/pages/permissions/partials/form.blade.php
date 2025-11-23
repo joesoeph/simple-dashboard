@@ -1,7 +1,7 @@
 @php
     $guards = ['web']; // bisa ambil dari config atau database juga
 @endphp
-<form onsubmit="return submitForm(this, '#permissionDatatable')" action="{{ $action }}">
+<form onsubmit="return app.helper.submitForm(this, '#permissionDatatable')" action="{{ $action }}">
     @csrf
     @if (isset($permission))
         @method('PUT')

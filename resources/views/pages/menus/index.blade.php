@@ -20,10 +20,11 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
+                    <x-alert />
                     <div class="card">
                         <div class="card-header text-right">
                             <button type="button" class="btn btn-primary"
-                                onclick="openModal('Add new menu', '{{ route('system-settings.menus.create') }}')">
+                                onclick="app.helper.openModal('Add new menu', '{{ route('system-settings.menus.create') }}')">
                                 <i class="fas fa-plus"></i>
                                 Add new
                             </button>
@@ -47,11 +48,15 @@
 
                                             <div>
                                                 <button type="button" class="btn btn-xs"
-                                                    onclick="openModal('Edit menu', '{{ route('system-settings.menus.edit', $menu) }}')">
+                                                    onclick="app.helper.openModal('Edit menu', '{{ route('system-settings.menus.edit', $menu) }}')">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
                                                 <button class="btn btn-xs"
-                                                    onclick="confirmDelete('{{ route('system-settings.menus.destroy', $menu) }}')">
+                                                    onclick="app.helper.confirmDelete('{{ route('system-settings.menus.destroy', $menu) }}', {
+                                                        onSuccess: () => {
+                                                            window.location.reload();
+                                                        }
+                                                    })">
                                                     <i class="fas fa-trash text-danger"></i>
                                                 </button>
                                             </div>
@@ -73,11 +78,15 @@
 
                                                             <div>
                                                                 <button type="button" class="btn btn-xs"
-                                                                    onclick="openModal('Edit menu', '{{ route('system-settings.menus.edit', $child) }}')">
+                                                                    onclick="app.helper.openModal('Edit menu', '{{ route('system-settings.menus.edit', $child) }}')">
                                                                     <i class="fas fa-edit"></i>
                                                                 </button>
                                                                 <button class="btn btn-xs"
-                                                                    onclick="confirmDelete('{{ route('system-settings.menus.destroy', $child) }}')">
+                                                                    onclick="app.helper.confirmDelete('{{ route('system-settings.menus.destroy', $child) }}', {
+                                                                        onSuccess: () => {
+                                                                            window.location.reload();
+                                                                        }
+                                                                    })">
                                                                     <i class="fas fa-trash text-danger"></i>
                                                                 </button>
                                                             </div>

@@ -23,7 +23,7 @@
                     <div class="card">
                         <div class="card-header text-right">
                             <button type="button" class="btn btn-primary"
-                                onclick="openModal('Add new user', '{{ route('system-settings.users.create') }}')">
+                                onclick="app.helper.openModal('Add new user', '{{ route('system-settings.users.create') }}')">
                                 <i class="fas fa-plus"></i>
                                 Add new
                             </button>
@@ -55,96 +55,94 @@
 
 @section('scripts')
     <script>
-        $(function() {
-            const table = $('#userDatatable').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('system-settings.users.datatable') }}",
-                    type: 'GET'
+        const table = $('#userDatatable').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('system-settings.users.datatable') }}",
+                type: 'GET'
+            },
+            columns: [{
+                    data: 'id',
+                    name: 'id'
                 },
-                columns: [{
-                        data: 'id',
-                        name: 'id'
-                    },
-                    {
-                        data: 'name',
-                        name: 'name'
-                    },
-                    {
-                        data: 'email',
-                        name: 'email'
-                    },
-                    {
-                        data: 'roles',
-                        name: 'roles',
-                        render: function(value) {
-                            if (!value) return '-';
-                            return value.split(', ').map(r =>
-                                `<span class="badge badge-primary mr-1">${r}</span>`
-                            ).join('');
-                        }
-                    },
-                    {
-                        data: 'permissions',
-                        name: 'permissions',
-                        render: function(value) {
-                            if (!value) return '-';
-                            return value.split(', ').map(p =>
-                                `<span class="badge badge-info mr-1">${p}</span>`
-                            ).join('');
-                        }
-                    },
-                    {
-                        data: 'created_at',
-                        name: 'created_at'
-                    },
-                    {
-                        data: 'actions',
-                        name: 'actions',
-                        width: '30px',
-                        className: 'text-center',
-                        orderable: false,
-                        searchable: false
+                {
+                    data: 'name',
+                    name: 'name'
+                },
+                {
+                    data: 'email',
+                    name: 'email'
+                },
+                {
+                    data: 'roles',
+                    name: 'roles',
+                    render: function(value) {
+                        if (!value) return '-';
+                        return value.split(', ').map(r =>
+                            `<span class="badge badge-primary mr-1">${r}</span>`
+                        ).join('');
                     }
-                ],
-                order: [
-                    [0, 'desc']
-                ], // Default sort by ID descending
-                pageLength: 25,
-                lengthMenu: [
-                    [10, 25, 50, 100],
-                    [10, 25, 50, 100]
-                ],
-                language: {
-                    processing: "Loading...",
-                    search: "Search:",
-                    lengthMenu: "Show _MENU_ entries",
-                    info: "Showing _START_ to _END_ of _TOTAL_ entries",
-                    infoEmpty: "Showing 0 to 0 of 0 entries",
-                    infoFiltered: "(filtered from _MAX_ total entries)",
-                    paginate: {
-                        first: "First",
-                        last: "Last",
-                        next: "Next",
-                        previous: "Previous"
-                    },
-                    emptyTable: "No data available"
+                },
+                {
+                    data: 'permissions',
+                    name: 'permissions',
+                    render: function(value) {
+                        if (!value) return '-';
+                        return value.split(', ').map(p =>
+                            `<span class="badge badge-info mr-1">${p}</span>`
+                        ).join('');
+                    }
+                },
+                {
+                    data: 'created_at',
+                    name: 'created_at'
+                },
+                {
+                    data: 'actions',
+                    name: 'actions',
+                    width: '30px',
+                    className: 'text-center',
+                    orderable: false,
+                    searchable: false
                 }
-            });
+            ],
+            order: [
+                [0, 'desc']
+            ], // Default sort by ID descending
+            pageLength: 25,
+            lengthMenu: [
+                [10, 25, 50, 100],
+                [10, 25, 50, 100]
+            ],
+            language: {
+                processing: "Loading...",
+                search: "Search:",
+                lengthMenu: "Show _MENU_ entries",
+                info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                infoEmpty: "Showing 0 to 0 of 0 entries",
+                infoFiltered: "(filtered from _MAX_ total entries)",
+                paginate: {
+                    first: "First",
+                    last: "Last",
+                    next: "Next",
+                    previous: "Previous"
+                },
+                emptyTable: "No data available"
+            }
+        });
 
-            $('#userDatatable tbody').on('click', 'tr', function() {
-                $('#userDatatable tbody tr').removeClass('selected-row');
-                $(this).addClass('selected-row');
-            });
+        $('#userDatatable tbody').on('click', 'tr', function() {
+            $('#userDatatable tbody tr').removeClass('selected-row');
+            $(this).addClass('selected-row');
+        });
 
 
-            $('#userDatatable').on('dblclick', 'tbody tr', function() {
-                const data = table.row(this).data();
-                if (!data) return;
+        $('#userDatatable').on('dblclick', 'tbody tr', function() {
+            const data = table.row(this).data();
+            if (!data) return;
 
-                openModal('Edit user', `/system-settings/users/${data.id}/edit`);
-            });
+            app.helper.openModal('Edit user', `/system-settings/users/${data.id}/edit`);
         });
     </script>
 @endsection
