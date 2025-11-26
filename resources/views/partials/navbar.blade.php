@@ -28,15 +28,19 @@
             </div>
         </li>
 
-        <!-- Messages Dropdown -->
+        <!-- Language Switcher -->
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
-                <i class="far fa-comments"></i>
-                <span class="badge badge-danger navbar-badge">3</span>
+                <x-icon name="flag-language-{{ app()->getLocale() }}" style="width: 30px;" />
             </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                <!-- Isi pesan bisa dibuat component terpisah jika dinamis -->
-                <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+
+            <div class="dropdown-menu dropdown-menu-right">
+                <a href="/lang/en" class="dropdown-item">
+                    <x-icon name="flag-language-en" style="width: 30px;margin-right:10px" /> English
+                </a>
+                <a href="/lang/id" class="dropdown-item">
+                    <x-icon name="flag-language-id" style="width: 30px;margin-right:10px" /> Indonesia
+                </a>
             </div>
         </li>
 
@@ -51,18 +55,6 @@
                 <div class="dropdown-divider"></div>
                 <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
             </div>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-                <i class="fas fa-expand-arrows-alt"></i>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#"
-                role="button">
-                <i class="fas fa-th-large"></i>
-            </a>
         </li>
     </ul>
 </nav>

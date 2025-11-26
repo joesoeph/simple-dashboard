@@ -9,12 +9,12 @@
         <div class="card">
             <div class="card-body login-card-body">
                 <p class="login-box-msg">
-                    You are only one step away from your new password, recover your password now.
+                    {{ __('You are only one step away from your new password, recover your password now.') }}
                 </p>
 
                 @if ($errors->any())
                     <div class="alert alert-danger mb-3 text-center">
-                        Please correct the errors below.
+                        {{ __('Please correct the errors below.') }}
                     </div>
                 @endif
 
@@ -25,8 +25,8 @@
                     <!-- Email -->
                     <div class="input-group mb-3">
                         <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                            placeholder="Email" value="{{ old('email', request()->query('email')) }}" id="email"
-                            aria-describedby="email-feedback" required autofocus>
+                            placeholder="{{ __('Email') }}" value="{{ old('email', request()->query('email')) }}"
+                            id="email" aria-describedby="email-feedback" required autofocus>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -40,7 +40,7 @@
                     <!-- Password -->
                     <div class="input-group mb-3">
                         <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
-                            placeholder="Password" id="password" aria-describedby="password-feedback" required>
+                            placeholder="{{ __('Password') }}" id="password" aria-describedby="password-feedback" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -54,7 +54,7 @@
                     <!-- Confirm Password -->
                     <div class="input-group mb-3">
                         <input type="password" name="password_confirmation" class="form-control"
-                            placeholder="Confirm Password" id="password_confirmation" required>
+                            placeholder="{{ __('Confirm Password') }}" id="password_confirmation" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -65,14 +65,14 @@
                     <div class="row">
                         <div class="col-12">
                             <button type="submit" class="btn btn-primary btn-block">
-                                Change password
+                                {{ __('Change password') }}
                             </button>
                         </div>
                     </div>
                 </form>
 
                 <p class="mb-1 mt-3 text-center">
-                    <a href="{{ route('login') }}">Login</a>
+                    <a href="{{ route('login') }}">{{ __('Login') }}</a>
                 </p>
             </div>
         </div>

@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Settings</h1>
+                    <h1 class="m-0">{{ __('Settings') }}</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Profile</a></li>
-                        <li class="breadcrumb-item active">Settings</li>
+                        <li class="breadcrumb-item"><a href="#">{{ __('Profile') }}</a></li>
+                        <li class="breadcrumb-item active">{{ __('Settings') }}</li>
                     </ol>
                 </div>
             </div>
@@ -24,13 +24,13 @@
                         <div class="card-header p-2">
                             <ul class="nav nav-pills">
                                 <li class="nav-item"><a class="nav-link active"
-                                        href="{{ route('profile.edit') }}">Profile</a>
+                                        href="{{ route('profile.edit') }}">{{ __('Profile') }}</a>
                                 </li>
                                 <li class="nav-item"><a class="nav-link"
-                                        href="{{ route('user-password.edit') }}">Password</a>
+                                        href="{{ route('user-password.edit') }}">{{ __('Password') }}</a>
                                 </li>
                                 <li class="nav-item"><a class="nav-link"
-                                        href="{{ route('appearance.edit') }}">Appearance</a>
+                                        href="{{ route('appearance.edit') }}">{{ __('Appearance') }}</a>
                                 </li>
                             </ul>
                         </div>
@@ -39,8 +39,8 @@
                                 <div class="tab-pane active">
                                     <div class="row justify-content-md-center">
                                         <div class="col-6">
-                                            <h3>Profile information</h3>
-                                            <p class="text-secondary">Update your name and email address</p>
+                                            <h3>{{ __('Profile information') }}</h3>
+                                            <p class="text-secondary">{{ __('Update your name and email address') }}</p>
                                         </div>
                                     </div>
                                     <div class="row justify-content-md-center">
@@ -53,7 +53,7 @@
                                                 <div class="input-group mb-3">
                                                     <input type="text" name="name"
                                                         class="form-control @error('name') is-invalid @enderror"
-                                                        placeholder="Full name"
+                                                        placeholder="{{ __('Name') }}"
                                                         value="{{ old('name', Auth::user()->name) }}" id="name"
                                                         aria-describedby="name-feedback" required autofocus>
                                                     <div class="input-group-append">
@@ -71,7 +71,7 @@
 
                                                 <!-- Email -->
                                                 <div class="input-group mb-3">
-                                                    <input type="email" name="email"
+                                                    <input type="email" name="email" placeholder="{{ __('Email') }}"
                                                         class="form-control @error('email') is-invalid @enderror"
                                                         value="{{ old('name', Auth::user()->email) }}" id="email"
                                                         aria-describedby="email-feedback" required>
@@ -93,17 +93,17 @@
                                                         role="alert">
                                                         <p class="mb-0">
                                                             <i class="fas fa-exclamation-triangle mr-2"></i>
-                                                            Your email address is <strong>unverified</strong>.
+                                                            {{ __('Your email address is unverified') }}
                                                             <a href="{{ route('verification.send') }}"
                                                                 onclick="event.preventDefault(); document.getElementById('resend-verification-form').submit();"
                                                                 class="text-primary underline">
-                                                                Click here to resend the verification email.
+                                                                {{ __('Click here to resend the verification email') }}
                                                             </a>
                                                         </p>
 
                                                         @if (session('status') === 'verification-link-sent')
                                                             <p class="text-success font-weight-bold mb-0 mt-2">
-                                                                A new verification link has been sent to your email address.
+                                                                {{ __('A new verification link has been sent to your email address') }}
                                                             </p>
                                                         @endif
 
@@ -117,7 +117,7 @@
 
                                                 <!-- Submit Button -->
                                                 <button type="submit" class="btn btn-primary">
-                                                    Save
+                                                    {{ __('Save') }}
                                                 </button>
                                             </form>
                                         </div>

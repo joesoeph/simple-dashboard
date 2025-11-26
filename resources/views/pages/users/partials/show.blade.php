@@ -13,31 +13,31 @@
     <div class="row">
         <div class="col-md-6 col-6">
             <div class="form-group mb-2">
-                <label class="text-muted mb-0">User ID</label>
+                <label class="text-muted mb-0">{{ __('User ID') }}</label>
                 <div class="font-weight-bold">{{ $user->id }}</div>
             </div>
         </div>
         <div class="col-md-6 col-6">
             <div class="form-group mb-2">
-                <label class="text-muted mb-0">Email Verified</label>
+                <label class="text-muted mb-0">{{ __('Email Verified') }}</label>
                 <div>
                     @if ($user->email_verified_at)
-                        <span class="badge badge-success">Verified</span>
+                        <span class="badge badge-success">{{ __('Verified') }}</span>
                     @else
-                        <span class="badge badge-secondary">Not Verified</span>
+                        <span class="badge badge-secondary">{{ __('Unverified') }}</span>
                     @endif
                 </div>
             </div>
         </div>
         <div class="col-md-6 col-6">
             <div class="form-group mb-2">
-                <label class="text-muted mb-0">Created At</label>
+                <label class="text-muted mb-0">{{ __('Created At') }}</label>
                 <div>{{ $user->created_at ? $user->created_at->format('d M Y H:i') : '-' }}</div>
             </div>
         </div>
         <div class="col-md-6 col-6">
             <div class="form-group mb-2">
-                <label class="text-muted mb-0">Updated At</label>
+                <label class="text-muted mb-0">{{ __('Updated At') }}</label>
                 <div>{{ $user->updated_at ? $user->updated_at->format('d M Y H:i') : '-' }}</div>
             </div>
         </div>

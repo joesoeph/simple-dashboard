@@ -10,7 +10,7 @@
         <div class="card">
             <div class="card-body login-card-body">
                 <p class="login-box-msg">
-                    You forgot your password? Here you can easily retrieve a new password.
+                    {{ __('You forgot your password? Here you can easily. retrieve a new password') }}
                 </p>
 
                 <!-- Flash Message: Link Terkirim -->
@@ -32,8 +32,8 @@
 
                     <div class="input-group mb-3">
                         <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                            placeholder="Email" value="{{ old('email') }}" aria-describedby="email-feedback" required
-                            autofocus>
+                            placeholder="{{ __('Email') }}" value="{{ old('email') }}" aria-describedby="email-feedback"
+                            required autofocus>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -57,10 +57,10 @@
                 </form>
 
                 <p class="mb-1 mt-3 text-center">
-                    <a href="{{ route('login') }}">Login</a>
+                    <a href="{{ route('login') }}">{{ __('Login') }}</a>
                 </p>
                 <p class="mb-0 text-center">
-                    <a href="{{ route('register') }}">Register a new membership</a>
+                    <a href="{{ route('register') }}">{{ __('Register a new membership') }}</a>
                 </p>
             </div>
             <!-- /.login-card-body -->

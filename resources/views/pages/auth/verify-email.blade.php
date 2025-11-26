@@ -8,17 +8,16 @@
         <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
-                <p class="login-box-msg">Verify Your Email Address</p>
+                <p class="login-box-msg">{{ __('Verify Your Email Address') }}</p>
 
                 @if (session('status') == 'verification-link-sent')
                     <div class="alert alert-success mb-3 text-center" role="alert">
-                        A new verification link has been sent to your email address.
+                        {{ __('A new verification link has been sent to your email address') }}
                     </div>
                 @endif
 
                 <p class="mb-4 text-center">
-                    Before proceeding, please check your email for a verification link.<br>
-                    If you did not receive the email, click the button below.
+                    {{ __('Before proceeding, please check your email for a verification link. If you did not receive the email, click the button below.') }}
                 </p>
 
                 <form method="POST" action="{{ route('verification.send') }}" class="mb-3">

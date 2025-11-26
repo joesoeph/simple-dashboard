@@ -18,14 +18,14 @@
 
     @empty($user)
         <div class="form-group">
-            <label>Password</label>
+            <label>{{ __('Password') }}</label>
             <input type="password" name="password" class="form-control">
         </div>
     @endempty
 
     {{-- ROLES --}}
     <div class="form-group">
-        <label>Roles</label>
+        <label>{{ __('Roles') }}</label>
         <select name="roles[]" class="form-control select2bs4" multiple>
             @foreach ($roles as $role)
                 <option value="{{ $role->name }}"
@@ -39,7 +39,7 @@
 
     {{-- PERMISSIONS --}}
     <div class="form-group">
-        <label>Permissions</label>
+        <label>{{ __('Permissions') }}</label>
         <select name="permissions[]" class="form-control select2bs4" multiple>
             @foreach ($permissions as $permission)
                 <option value="{{ $permission->name }}"
@@ -51,5 +51,5 @@
         </select>
     </div>
 
-    <button class="btn btn-primary">Save</button>
+    <button class="btn btn-primary">{{ __('Save') }}</button>
 </form>

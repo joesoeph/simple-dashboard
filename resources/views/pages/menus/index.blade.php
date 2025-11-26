@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Menus</h1>
+                    <h1 class="m-0">{{ __('Menu') }}</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Menus</a></li>
-                        <li class="breadcrumb-item active">User Management</li>
+                        <li class="breadcrumb-item"><a href="#">{{ __('Menu') }}</a></li>
+                        <li class="breadcrumb-item active">{{ __('System Settings') }}</li>
                     </ol>
                 </div>
             </div>
@@ -24,13 +24,13 @@
                     <div class="card">
                         <div class="card-header text-right">
                             <button type="button" class="btn btn-primary"
-                                onclick="app.helper.openModal('Add new menu', '{{ route('system-settings.menus.create') }}')">
+                                onclick="app.helper.openModal('{{ __('Add New') }}', '{{ route('system-settings.menus.create') }}')">
                                 <i class="fas fa-plus"></i>
-                                Add new
+                                {{ __('Add New') }}
                             </button>
                             <button id="save-order" class="btn btn-primary">
                                 <i class="fas fa-save"></i>
-                                Save Position
+                                {{ __('Save Position') }}
                             </button>
                         </div>
                         <div class="card-body">
@@ -40,15 +40,15 @@
                                     <div class="list-group-item" data-id="{{ $menu->id }}">
                                         <div class="d-flex justify-content-between">
                                             <div>
-                                                <strong>{{ $menu->label }}</strong>
+                                                <strong>{{ __($menu->label) }}</strong>
                                                 <span class="badge {{ $menu->is_active ? 'bg-success' : 'bg-danger' }}">
-                                                    {{ $menu->is_active ? 'Active' : 'Inactive' }}
+                                                    {{ $menu->is_active ? __('Active') : __('Inactive') }}
                                                 </span>
                                             </div>
 
                                             <div>
                                                 <button type="button" class="btn btn-xs"
-                                                    onclick="app.helper.openModal('Edit menu', '{{ route('system-settings.menus.edit', $menu) }}')">
+                                                    onclick="app.helper.openModal('{{ __('Edit menu') }}', '{{ route('system-settings.menus.edit', $menu) }}')">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
                                                 <button class="btn btn-xs"
@@ -69,16 +69,16 @@
                                                     <div class="list-group-item" data-id="{{ $child->id }}">
                                                         <div class="d-flex justify-content-between">
                                                             <div>
-                                                                <strong>{{ $child->label }}</strong>
+                                                                <strong>{{ __($child->label) }}</strong>
                                                                 <span
                                                                     class="badge {{ $child->is_active ? 'bg-success' : 'bg-danger' }}">
-                                                                    {{ $child->is_active ? 'Active' : 'Inactive' }}
+                                                                    {{ $child->is_active ? __('Active') : __('Inactive') }}
                                                                 </span>
                                                             </div>
 
                                                             <div>
                                                                 <button type="button" class="btn btn-xs"
-                                                                    onclick="app.helper.openModal('Edit menu', '{{ route('system-settings.menus.edit', $child) }}')">
+                                                                    onclick="app.helper.openModal('{{ __('Edit menu') }}', '{{ route('system-settings.menus.edit', $child) }}')">
                                                                     <i class="fas fa-edit"></i>
                                                                 </button>
                                                                 <button class="btn btn-xs"

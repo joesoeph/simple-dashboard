@@ -8,11 +8,11 @@
     @endif
     <div id="formErrors"></div>
     <div class="form-group">
-        <label for="name">Name</label>
+        <label for="name">{{ __('Name') }}</label>
         <input id="name" type="text" name="name" value="{{ $permission->name ?? '' }}" class="form-control">
     </div>
     <div class="form-group">
-        <label for="guard_name">Guard name</label>
+        <label for="guard_name">{{ __('Guard name') }}</label>
         <select id="guard_name" class="form-control select2bs4" name="guard_name" style="width: 100%;">
             @foreach ($guards as $guard)
                 <option value="{{ $guard }}" {{ $guard == ($permission->guard_name ?? '') ? 'selected' : '' }}>
@@ -21,5 +21,5 @@
             @endforeach
         </select>
     </div>
-    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="submit" class="btn btn-primary">{{ __('Save') }}</button>
 </form>

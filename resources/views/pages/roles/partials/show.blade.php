@@ -3,34 +3,34 @@
         <h5 class="mb-0">
             <i class="fas fa-key text-info mr-2"></i>{{ $role->name }}
         </h5>
-        <small class="text-muted">Guard: {{ $role->guard_name }}</small>
+        <small class="text-muted">{{ __('Guard') }}: {{ $role->guard_name }}</small>
     </div>
     <div class="row">
         <div class="col-md-6 col-6 mb-2">
-            <label class="text-muted mb-0">Role ID</label>
+            <label class="text-muted mb-0">{{ __('Role ID') }}</label>
             <div class="font-weight-bold">{{ $role->id }}</div>
         </div>
 
         <div class="col-md-6 col-6 mb-2">
-            <label class="text-muted mb-0">Guard Name</label>
+            <label class="text-muted mb-0">{{ __('Guard Name') }}</label>
             <div>{{ $role->guard_name }}</div>
         </div>
 
         <div class="col-md-6 col-6 mb-2">
-            <label class="text-muted mb-0">Created At</label>
+            <label class="text-muted mb-0">{{ __('Created At') }}</label>
             <div>{{ $role->created_at?->format('d M Y H:i') ?? '-' }}</div>
         </div>
 
         <div class="col-md-6 col-6 mb-2">
-            <label class="text-muted mb-0">Updated At</label>
+            <label class="text-muted mb-0">{{ __('Updated At') }}</label>
             <div>{{ $role->updated_at?->format('d M Y H:i') ?? '-' }}</div>
         </div>
     </div>
     <div class="mt-3">
-        <label class="text-muted">Permissions</label>
+        <label class="text-muted">{{ __('Permissions') }}</label>
 
         @if ($role->permissions->count() === 0)
-            <div class="text-muted"><i>This role has no permissions yet.</i></div>
+            <div class="text-muted"><i>{{ __('This role has no permissions yet') }}</i></div>
         @else
             <div class="row">
                 @foreach ($role->permissions as $permission)

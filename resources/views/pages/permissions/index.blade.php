@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Permissions</h1>
+                    <h1 class="m-0">{{ __('Permissions') }}</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Permissions</a></li>
-                        <li class="breadcrumb-item active">User Management</li>
+                        <li class="breadcrumb-item"><a href="#">{{ __('Permissions') }}</a></li>
+                        <li class="breadcrumb-item active">{{ __('System Settings') }}</li>
                     </ol>
                 </div>
             </div>
@@ -23,20 +23,20 @@
                     <div class="card">
                         <div class="card-header text-right">
                             <button type="button" class="btn btn-primary"
-                                onclick="app.helper.openModal('Add new permission', '{{ route('system-settings.permissions.create') }}')">
+                                onclick="app.helper.openModal('{{ __('Add New') }}', '{{ route('system-settings.permissions.create') }}')">
                                 <i class="fas fa-plus"></i>
-                                Add new
+                                {{ __('Add New') }}
                             </button>
                         </div>
                         <div class="card-body">
                             <table id="permissionDatatable" class="table-bordered table-striped table-sm table-hover table">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Guard Name</th>
-                                        <th>Created At</th>
-                                        <th>Actions</th>
+                                        <th>{{ __('ID') }}</th>
+                                        <th>{{ __('Name') }}</th>
+                                        <th>{{ __('Guard Name') }}</th>
+                                        <th>{{ __('Created At') }}</th>
+                                        <th>{{ __('Actions') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>

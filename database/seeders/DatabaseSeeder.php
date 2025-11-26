@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'name' => 'system-settings',
-                'label' => 'User Management',
+                'label' => 'System Settings',
                 'icon' => 'fas fa-users-cog',
                 'order' => 2,
                 'permission_name' => 'view system-settings menu',

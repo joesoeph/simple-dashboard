@@ -11,7 +11,7 @@
 
         <i class="nav-icon {{ $menu->icon }}"></i>
         <p>
-            {{ $menu->label }}
+            {{ __($menu->label) }}
 
             @if ($menu->visibleChildren()->count())
                 <i class="right fas fa-angle-left"></i>

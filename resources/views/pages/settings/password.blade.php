@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Settings</h1>
+                    <h1 class="m-0">{{ __('Settings') }}</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Password</a></li>
-                        <li class="breadcrumb-item active">Settings</li>
+                        <li class="breadcrumb-item"><a href="#">{{ __('Password') }}</a></li>
+                        <li class="breadcrumb-item active">{{ __('Settings') }}</li>
                     </ol>
                 </div>
             </div>
@@ -23,13 +23,14 @@
                     <div class="card">
                         <div class="card-header p-2">
                             <ul class="nav nav-pills">
-                                <li class="nav-item"><a class="nav-link" href="{{ route('profile.edit') }}">Profile</a>
+                                <li class="nav-item"><a class="nav-link"
+                                        href="{{ route('profile.edit') }}">{{ __('Profile') }}</a>
                                 </li>
                                 <li class="nav-item"><a class="nav-link active"
-                                        href="{{ route('user-password.edit') }}">Password</a>
+                                        href="{{ route('user-password.edit') }}">{{ __('Password') }}</a>
                                 </li>
                                 <li class="nav-item"><a class="nav-link"
-                                        href="{{ route('appearance.edit') }}">Appearance</a>
+                                        href="{{ route('appearance.edit') }}">{{ __('Appearance') }}</a>
                                 </li>
                             </ul>
                         </div>
@@ -38,9 +39,10 @@
                                 <div class="tab-pane active">
                                     <div class="row justify-content-md-center">
                                         <div class="col-6">
-                                            <h3>Update password</h3>
-                                            <p class="text-secondary">Ensure your account is using a long, random password
-                                                to stay secure</p>
+                                            <h3>{{ __('Update password') }}</h3>
+                                            <p class="text-secondary">
+                                                {{ __('Ensure your account is using a long, random password to stay secure') }}
+                                            </p>
                                         </div>
                                     </div>
                                     <div class="row justify-content-md-center">
@@ -63,8 +65,8 @@
                                                 <div class="input-group mb-3">
                                                     <input type="password" name="current_password"
                                                         class="form-control @error('current_password') is-invalid @enderror"
-                                                        placeholder="Current password" value="{{ old('current_password') }}"
-                                                        id="current_password"
+                                                        placeholder="{{ __('Current password') }}"
+                                                        value="{{ old('current_password') }}" id="current_password"
                                                         aria-describedby="current_password-feedback" />
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
@@ -102,7 +104,7 @@
                                                 <div class="input-group mb-3">
                                                     <input type="password" name="password_confirmation"
                                                         class="form-control @error('password_confirmation') is-invalid @enderror"
-                                                        placeholder="Confirm password"
+                                                        placeholder="{{ __('Confirm password') }}"
                                                         value="{{ old('password_confirmation') }}"
                                                         id="password_confirmation"
                                                         aria-describedby="password_confirmation-feedback" />
@@ -121,7 +123,7 @@
 
                                                 <!-- Submit Button -->
                                                 <button type="submit" class="btn btn-primary">
-                                                    Save
+                                                    {{ __('Save') }}
                                                 </button>
                                             </form>
                                         </div>

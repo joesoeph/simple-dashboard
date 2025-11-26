@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\I18nController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -50,3 +52,16 @@ Route::middleware(['auth', 'verified'])->name('system-settings.')->prefix('syste
     Route::post('menus/reorder', [MenuController::class, 'reorder'])->name('menus.reorder');
     Route::resource('menus', MenuController::class);
 });
+
+Route::get('/lang/{locale}', function ($locale) {
+    if (!in_array($locale, ['id', 'en'])) {
+        abort(400);
+    }
+
+    session(['locale' => $locale]);
+
+    return back();
+});
+
+Route::get('/lang.js', [I18nController::class, 'langJs'])
+    ->name('lang.js');
